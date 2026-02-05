@@ -16,7 +16,7 @@ void MenuPrincipal()
     Console.WriteLine("3 - Artistas");
     Console.WriteLine("4 - Podcasts");
     Console.Write("Digite qual tela deseja ir: ");
-    int resposta =int.Parse(Console.ReadLine()!);
+    int resposta = int.Parse(Console.ReadLine()!);
 
     switch (resposta)
     {
@@ -156,7 +156,7 @@ void AddEpsPodcasts()
     Console.WriteLine("Preencha as informações do episodio");
     Console.Write("Titulo: ");
     string titulo = Console.ReadLine()!;
-    Console.Write("Duração(segundos): ");
+    Console.Write("Duração(minutos): ");
     int duracao = int.Parse(Console.ReadLine()!);
     Console.Write("Ordem: ");
     int ordem = int.Parse(Console.ReadLine()!);

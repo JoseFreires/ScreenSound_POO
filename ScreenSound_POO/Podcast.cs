@@ -30,7 +30,7 @@
 
         if(Episodios.Count > 0)
         {
-            foreach (Episodio ep in Episodios)
+            foreach (Episodio ep in Episodios.OrderBy(e => e.Ordem))
             {
                 ep.ExibirInfoEp();
             }

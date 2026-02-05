@@ -8,11 +8,11 @@
         Titulo = titulo;
     }
 
-    public int Duracao { get; set; }
-    public int Ordem { get; set; }
-    public string Resumo { get; set; }
-    public string Titulo { get; set; }
-    private List<string> convidados = new List<string>();
+    public int Duracao { get; }
+    public int Ordem { get; }
+    public string Resumo { get; }
+    public string Titulo { get;}
+    private List<string> convidados = new();
 
     public void AddConvidados(string convidado)
     {
