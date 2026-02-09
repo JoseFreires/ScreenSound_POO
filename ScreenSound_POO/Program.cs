@@ -1,6 +1,13 @@
-﻿Console.WriteLine("Bem-vindo ao SoundScreen 2.0 do Zé");
+﻿using System.Net;
 
-List<Podcast> podcasts = new List<Podcast>();
+Console.WriteLine("Bem-vindo ao SoundScreen 2.0 do Zé");
+
+List<Podcast> podcasts = new ();
+List<Artista> artistas = new ();
+artistas.Add(new Artista("Yung Li"));
+artistas[0].AddAlbum(new Album("Quarentapes"));
+
+
 
 void GeraTituloMenu(string tela)
 {
@@ -38,6 +45,8 @@ void MenuPrincipal()
     }
 }
 
+// --------------- Parte das Músicas ---------------
+
 void MenuMusicas()
 {
     Console.Clear();
@@ -66,13 +75,127 @@ void MenuMusicas()
 
 void AddMusica()
 {
+    Console.Clear();
+    Console.WriteLine("--- Adicionar nova música ---");
+    if(artistas.Count > 0)
+    {
+        Console.Write("A música que deseja adicionar é de qual artista? R: ");
+        string respostaNomeArtista = Console.ReadLine()!;
+        foreach(Artista artista in artistas)
+        {
+            if(artista.Nome == respostaNomeArtista)
+            {
+                if(artista.QuantAlbums() > 0)
+                {
+                    artista.ExibirDiscografia();
+                    Console.WriteLine();
+                    Console.Write("E ela pertence a qual album? R: ");
+                    string respostaTituloAlbum = Console.ReadLine()!;
+                    foreach (Album album in artista.ExibirAlbums())
+                    {
+                        if (album.Titulo == respostaTituloAlbum)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("--- Informações da nova música ---");
+                            Console.Write("Nome: ");
+                            string nome = Console.ReadLine()!;
+                            Console.Write("Duração: ");
+                            int duracao = int.Parse(Console.ReadLine()!);
+                            Console.Write("O ano que foi lançado: ");
+                            int ano = int.Parse(Console.ReadLine()!);
+                            Console.Write("O genero da música: ");
+                            string genero = Console.ReadLine()!;
+
+                            Musica musica = new Musica(nome, duracao, ano, new Genero(genero));
+                            album.AddMusica(musica);
+                            Console.WriteLine("Música adicionada com sucesso!");
+                            Thread.Sleep(3000);
+
+                            MenuMusicas();
+
+                        }
+                    }
+
+                    Console.Write("Nenhum album com esse nome foi encontrado, gostaria de criar o album? R: ");
+                    string resposta = Console.ReadLine()!.ToUpper();
+                    if (resposta == "S")
+                    {
+                        Console.WriteLine("Indo para o menu de Albums...");
+                        Thread.Sleep(3000);
+                        MenuAlbums();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Retornando ao menu de Músicas...");
+                        Thread.Sleep(3000);
+                        MenuMusicas();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Esse artista não possui nenhum álbum, necessário criar um...");
+                    Thread.Sleep(3000);
+                    AddAlbum();
+
+                }
+
+
+            }
+            else
+            {
+                Console.WriteLine("Não existe esse artista registrado, necessário adiciona-lo para adicionar a música");
+                Thread.Sleep(3000);
+                MenuArtistas();
+
+            }
+
+        }
+    }
+    else
+    {
+        Console.WriteLine("Não existe nenhum artista registrado, necessário adicionar um para adicionar a música");
+        Thread.Sleep(3000);
+        MenuArtistas();
+
+    }
 
 }
 
 void ExibirMusicas()
 {
+    Console.WriteLine("--- Visualizar as músicas ---");
+    Console.WriteLine("As músicas que deseja visualizar é de qual album? R: ");
+    string respostaTituloAlbum = Console.ReadLine()!;
+
+    //foreach (Album album in albums)
+    //{
+    //    if (album.Titulo == respostaTituloAlbum)
+    //    {
+            
+    //        album.ExibirListaMusicas();
+    //        MenuMusicas();
+
+    //    }
+    //}
+
+    Console.WriteLine("Nenhum album com esse nome foi encontrado, gostaria de criar o album? R: ");
+    string resposta = Console.ReadLine()!.ToUpper();
+    if (resposta == "S")
+    {
+        Console.WriteLine("Indo para o menu de Albums...");
+        Thread.Sleep(3000);
+        MenuAlbums();
+    }
+    else
+    {
+        Console.WriteLine("Retornando ao menu de Músicas...");
+        Thread.Sleep(3000);
+        MenuMusicas();
+    }
 
 }
+
+// --------------- Parte dos Albums ---------------
 
 void MenuAlbums()
 {
@@ -81,9 +204,71 @@ void MenuAlbums()
     Console.WriteLine("1 - Adicionar um novo album");
     Console.WriteLine("2 - Visualizar os albums salvos");
     Console.WriteLine("3 - Visualizar músicas de um album");
+    Console.Write("Resposta: ");
+    int resposta = int.Parse(Console.ReadLine()!);
+
+    switch (resposta)
+    {
+        case 1:
+            AddAlbum();
+            break;
+        case 2:
+            ExibirAlbums();
+            break;
+        case 3:
+            ExibirMusicas();
+            break;
+
+        default:
+            Console.WriteLine("Nenhuma opção foi selecionada");
+            break;
+    }
+}
+
+void AddAlbum()
+{
+    Console.WriteLine("--- Adicionar novo álbum ---");
+    Console.WriteLine("O álbum que deseja adicionar é de qual artista? R: ");
+    string respostaNomeArtista = Console.ReadLine()!;
+
+    foreach (Artista artista in artistas)
+    {
+        if (artista.Nome == respostaNomeArtista)
+        {
+            Console.Write("Titulo: ");
+            string titulo = Console.ReadLine()!;
+
+            Album album = new Album(titulo);
+            artista.AddAlbum(album);
+            //albums.Add(album);
+            MenuAlbums();
+
+        }
+    }
+
+    Console.WriteLine("Nenhum album com esse nome foi encontrado, gostaria de criar o album? R: ");
+    string resposta = Console.ReadLine()!.ToUpper();
+    if (resposta == "S")
+    {
+        Console.WriteLine("Indo para o menu de Albums...");
+        Thread.Sleep(3000);
+        MenuAlbums();
+    }
+    else
+    {
+        Console.WriteLine("Retornando ao menu de Músicas...");
+        Thread.Sleep(3000);
+        MenuMusicas();
+    }
 
 }
 
+void ExibirAlbums() 
+{
+    Console.WriteLine("--- Visualizar álbums salvos ---");
+}
+
+// --------------- Parte dos Artistas ---------------
 void MenuArtistas()
 {
     Console.Clear();
@@ -94,6 +279,8 @@ void MenuArtistas()
 
 }
 
+
+// --------------- Parte dos Podcasts ---------------
 void MenuPodcasts()
 {
     Console.Clear();
