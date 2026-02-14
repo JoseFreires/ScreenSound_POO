@@ -19,7 +19,15 @@
         return albums.Count;
     }
 
-    public List<Album> ExibirAlbums()
+    public void ExibirCadaAlbum()
+    {
+        foreach (Album album in albums)
+        {
+            Console.WriteLine($"- {album.Titulo}");
+        }
+    }
+
+    public List<Album> RetornarAlbums()
     {
         return albums;
     }
@@ -27,9 +35,17 @@
     public void ExibirDiscografia()
     {
         Console.WriteLine($"Discografia do {Nome}");
-        foreach (Album album in albums) 
-        { 
-            Console.WriteLine($"Album: {album.Titulo}");
+        if(albums.Count == 0)
+        {
+            Console.WriteLine("Nenhum álbum salvo para este artista...");
         }
+        else
+        {
+            foreach (Album album in albums)
+            {
+                Console.WriteLine($"Album: {album.Titulo}");
+            }
+        }
+            
     }
 }

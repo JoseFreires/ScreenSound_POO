@@ -18,8 +18,7 @@
     public Genero Genero { get; }
 
 
-    // Método
-    public string DescricaoResumida => $"A música {Nome}.";
+    // Métodos
 
     public void ExibirFichaTecnica()
     {
