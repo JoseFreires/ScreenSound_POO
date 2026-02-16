@@ -237,14 +237,12 @@ void ExibirMusicas()
 
 
             }
-            
-            Console.WriteLine("Não existe esse artista registrado, necessário adiciona-lo para adicionar a música");
-            Thread.Sleep(3000);
-            MenuArtistas();
-
-            
+           
 
         }
+        Console.WriteLine("Não existe esse artista registrado, necessário adiciona-lo para adicionar a música");
+        Thread.Sleep(3000);
+        MenuArtistas();
     }
     
     Console.WriteLine("Não existe nenhum artista registrado, necessário adicionar um para adicionar a música");
