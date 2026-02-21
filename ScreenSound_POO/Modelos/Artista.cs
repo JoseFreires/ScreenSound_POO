@@ -1,6 +1,8 @@
-﻿namespace ScreenSound.Modelos;
+﻿using ScreenSound_POO.Modelos;
 
-internal class Artista
+namespace ScreenSound.Modelos;
+
+internal class Artista : IAvaliavel
 {
     private List<Album> albuns = new List<Album>();
     private List<Avaliacao> notas = new List<Avaliacao>();

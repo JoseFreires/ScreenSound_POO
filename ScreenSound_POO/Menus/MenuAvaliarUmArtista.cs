@@ -24,7 +24,7 @@ internal class MenuAvaliarUmArtista : Menu
         }
         else
         {
-            Console.WriteLine($"\nA banda {nomeDaArtista} não foi encontrada!");
+            Console.WriteLine($"\nO artista {nomeDaArtista} não foi encontrado!");
             Console.WriteLine("Digite uma tecla para voltar ao menu principal");
             Console.ReadKey();
             Console.Clear();
